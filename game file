@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Marketing Strategy Tycoon</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Marketing Strategy Tycoon</h1>
+        <div class="stats">
+            <p>Money: <span id="money">$0</span></p>
+            <p>Marketing Level: <span id="level">1</span></p>
+            <p>Revenue per Click: $<span id="revenue">1</span></p>
+        </div>
+        
+        <div class="strategies">
+            <button id="social-media" class="strategy-button">Invest in Social Media Ads ($10)</button>
+            <button id="seo" class="strategy-button">Invest in SEO ($50)</button>
+            <button id="email-marketing" class="strategy-button">Invest in Email Marketing ($100)</button>
+        </div>
+        
+        <div class="game-controls">
+            <button id="earn-money" class="earn-button">Earn Money</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.game-container {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.stats p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.strategies {
+    margin: 20px 0;
+}
+
+.strategy-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.strategy-button:hover {
+    background-color: #2980b9;
+}
+
+.earn-button {
+    background-color: #2ecc71;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.earn-button:hover {
+    background-color: #27ae60;
+}
+// Game State Variables
+let money = 0;
+let level = 1;
+let revenuePerClick = 1;
+let socialMediaInvested = 0;
+let seoInvested = 0;
+let emailMarketingInvested = 0;
+
+// DOM Elements
+const moneyElement = document.getElementById('money');
+const levelElement = document.getElementById('level');
+const revenueElement = document.getElementById('revenue');
+const earnButton = document.getElementById('earn-money');
+const socialMediaButton = document.getElementById('social-media');
+const seoButton = document.getElementById('seo');
+const emailMarketingButton = document.getElementById('email-marketing');
+
+// Update Game Stats
+function updateStats() {
+    moneyElement.textContent = `$${money}`;
+    levelElement.textContent = level;
+    revenueElement.textContent = revenuePerClick;
+}
+
+// Earn Money Logic
+earnButton.addEventListener('click', () => {
+    money += revenuePerClick;
+    updateStats();
+});
+
+// Invest in Social Media Ads
+socialMediaButton.addEventListener('click', () => {
+    if (money >= 10) {
+        money -= 10;
+        socialMediaInvested++;
+        revenuePerClick += 2;  // Social Media increases earnings by $2 per click
+        updateStats();
+        alert("You invested in Social Media Ads!");
+    } else {
+        alert("You don't have enough money!");
+    }
+});
+
+// Invest in SEO
+seoButton.addEventListener('click', () => {
+    if (money >= 50) {
+        money -= 50;
+        seoInvested++;
+        revenuePerClick += 5;  // SEO increases earnings by $5 per click
+        updateStats();
+        alert("You invested in SEO!");
+    } else {
+        alert("You don't have enough money!");
+    }
+});
+
+// Invest in Email Marketing
+emailMarketingButton.addEventListener('click', () => {
+    if (money >= 100) {
+        money -= 100;
+        emailMarketingInvested++;
+        revenuePerClick += 10;  // Email Marketing increases earnings by $10 per click
+        updateStats();
+        alert("You invested in Email Marketing!");
+    } else {
+        alert("You don't have enough money!");
+    }
+});
+
+// Initial Stats Update
+updateStats();
